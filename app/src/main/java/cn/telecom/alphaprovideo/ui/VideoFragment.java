@@ -36,6 +36,8 @@ public class VideoFragment extends Fragment {
 
     private String id;
     private VideoItem videoItem;
+    private long lastClickTime = 0L;
+    private boolean isFullScreen = false;
 
     private OnFragmentInteractionListener mListener;
 
@@ -118,6 +120,10 @@ public class VideoFragment extends Fragment {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                if (isFullScreen) {
+                    isFullScreen = false;
+                    onFullScreenStateChanged();
+                }
                 playNow.setVisibility(View.VISIBLE);
                 pic.setVisibility(View.VISIBLE);
             }
@@ -128,16 +134,41 @@ public class VideoFragment extends Fragment {
         mediaController.setMediaPlayer(videoView);
         videoView.setMediaController(mediaController);
 
+        videoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (System.currentTimeMillis() - lastClickTime < 600) {
+                    isFullScreen = !isFullScreen;
+                    onFullScreenStateChanged();
+                    return;
+                }
+                lastClickTime = System.currentTimeMillis();
+            }
+        });
+
         Glide.with(this).asBitmap().load(videoItem.getPicture())
                 .into(pic);
         resetVideoViewSize(SCREENWIDTH, SCREENWIDTH * 9 / 16);
     }
 
+    private void onFullScreenStateChanged() {
+        Uri uri = new Uri.Builder().appendPath("VIDEO").appendQueryParameter(
+                "FULL", isFullScreen ? "true" : "false"
+        ).build();
+        onButtonPressed(uri);
+        resetVideoViewSize(SCREENWIDTH, SCREENWIDTH * 9 / 16);
+    }
+
     private void resetVideoViewSize(int width, int height) {
-        int size = SCREENWIDTH + 1;
         ViewGroup.LayoutParams params = videoView.getLayoutParams();
-        params.width = size;
-        params.height = size * height / width;
+        int size = SCREENWIDTH + 1;
+        if (isFullScreen) {
+            params.width = size * width / height;
+            params.height = size;
+        } else {
+            params.width = size;
+            params.height = size * height / width;
+        }
         videoView.setLayoutParams(params);
     }
 

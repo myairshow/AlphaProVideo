@@ -5,10 +5,18 @@
     android:layout_height="wrap_content"
     tools:context=".ui.VideoFragment">
 
-    <VideoView
-        android:id="@+id/videoView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="wrap_content"
+        android:background="#FF000000"
+        android:gravity="center">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/pic"
@@ -17,9 +25,9 @@
 
     <ImageView
         android:id="@+id/playNow"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:src="@drawable/ic_media_play" />
 
 </FrameLayout>
