@@ -14,7 +14,7 @@ import cn.telecom.alphaprovideo.model.VideoItem;
 import cn.telecom.alphaprovideo.ui.DetailActivity;
 
 public class PresenterRecommend implements Presenter {
-    
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         return new Holder(LayoutInflater.from(parent.getContext())
