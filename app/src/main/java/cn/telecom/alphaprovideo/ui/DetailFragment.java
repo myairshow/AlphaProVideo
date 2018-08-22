@@ -4,34 +4,37 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
+import android.widget.TextView;
 
 import cn.telecom.alphaprovideo.R;
+import cn.telecom.alphaprovideo.adapter.DetailAdapter;
+import cn.telecom.alphaprovideo.model.VideoItem;
+import cn.telecom.alphaprovideo.model.VideoList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link OnWebFragmentInteractionListener} interface
+ * {@link OnDetailFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link WebFragment#newInstance} factory method to
+ * Use the {@link DetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WebFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+public class DetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String URL = "url";
+    private static final String ID = "id";
 
     // TODO: Rename and change types of parameters
-    private String url;
+    private String id;
+    private VideoItem item;
 
-    private OnWebFragmentInteractionListener mListener;
+    private OnDetailFragmentInteractionListener mListener;
 
-    private WebView webView;
-
-    public WebFragment() {
+    public DetailFragment() {
         // Required empty public constructor
     }
 
@@ -39,13 +42,13 @@ public class WebFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param url Parameter 1.
-     * @return A new instance of fragment WebFragment.
+     * @return A new instance of fragment DetailFragment.
      */
-    public static WebFragment newInstance(String url) {
-        WebFragment fragment = new WebFragment();
+    // TODO: Rename and change types and number of parameters
+    public static DetailFragment newInstance(String id) {
+        DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
-        args.putString(URL, url);
+        args.putString(ID, id);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,34 +57,36 @@ public class WebFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            url = getArguments().getString(URL);
+            id = getArguments().getString(ID);
         }
+        item = VideoList.getInstance().findItemById(id);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root =  inflater.inflate(R.layout.fragment_web, container, false);
-        webView = root.findViewById(R.id.webView);
-        if(webView != null) {
-            webView.loadUrl(url);
-        }
+        View root =  inflater.inflate(R.layout.fragment_detail, container, false);
+        RecyclerView recyclerView = root.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(inflater.getContext()));
+        DetailAdapter adapter = new DetailAdapter();
+        recyclerView.setAdapter(adapter);
+        adapter.putItem(item);
         return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onWebFragmentInteraction(uri);
+            mListener.onDetailFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnWebFragmentInteractionListener) {
-            mListener = (OnWebFragmentInteractionListener) context;
+        if (context instanceof OnDetailFragmentInteractionListener) {
+            mListener = (OnDetailFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -104,7 +109,8 @@ public class WebFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnWebFragmentInteractionListener {
-        void onWebFragmentInteraction(Uri uri);
+    public interface OnDetailFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onDetailFragmentInteraction(Uri uri);
     }
 }

@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import cn.telecom.alphaprovideo.R;
 import cn.telecom.alphaprovideo.model.URLMap;
 
-public class MainActivity extends AppCompatActivity implements WebFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements WebFragment.OnWebFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements WebFragment.OnFra
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onWebFragmentInteraction(Uri uri) {
 
     }
 }

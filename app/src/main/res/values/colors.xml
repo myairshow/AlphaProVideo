@@ -5,4 +5,10 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="black_overlay">#66000000</color>
+
+    #文本用色
+    <color name="color_2">#FFFFFFFF</color>
+    <color name="color_3">#FFACACAC</color>
+    <color name="color_4">#FF999999</color>
+    <color name="color_5">#FF3E3E3E</color>
 </resources>

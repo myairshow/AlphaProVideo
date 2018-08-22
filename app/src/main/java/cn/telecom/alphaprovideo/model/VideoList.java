@@ -235,7 +235,7 @@ public class VideoList {
                 map.append(item.getId().hashCode(), item);
             }
         }
-        VideoItem item = map.get(id.hashCode());
+        VideoItem item = id == null ? items.get(0) : map.get(id.hashCode());
         return item == null ? items.get(0) : item;
     }
 

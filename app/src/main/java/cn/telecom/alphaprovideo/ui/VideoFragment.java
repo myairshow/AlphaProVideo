@@ -22,7 +22,7 @@ import cn.telecom.alphaprovideo.model.VideoList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link VideoFragment.OnFragmentInteractionListener} interface
+ * {@link OnVideoFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link VideoFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -39,7 +39,7 @@ public class VideoFragment extends Fragment {
     private long lastClickTime = 0L;
     private boolean isFullScreen = false;
 
-    private OnFragmentInteractionListener mListener;
+    private OnVideoFragmentInteractionListener mListener;
 
     private VideoView videoView;
     private View playNow;
@@ -174,15 +174,15 @@ public class VideoFragment extends Fragment {
 
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onVideoFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnVideoFragmentInteractionListener) {
+            mListener = (OnVideoFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -205,7 +205,7 @@ public class VideoFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+    public interface OnVideoFragmentInteractionListener {
+        void onVideoFragmentInteraction(Uri uri);
     }
 }
