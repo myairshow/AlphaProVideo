@@ -6,6 +6,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import cn.telecom.alphaprovideo.R;
@@ -16,10 +19,12 @@ import cn.telecom.alphaprovideo.R;
  */
 public class FlashActivity extends AppCompatActivity {
 
-    private final static int CHANGE = 0x082201;
     private final static int MAIN = 0x082202;
 
     private UIHandler handler = new UIHandler();
+
+    private ImageView telecomPic;
+    private View ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,7 @@ public class FlashActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_flash);
 
+        findViews();
 
         findViewById(R.id.logo).setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -35,16 +41,88 @@ public class FlashActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
-        Message msg = Message.obtain();
-        msg.obj = this;
-        msg.what = CHANGE;
-        handler.sendMessageDelayed(msg, 800L);
 
+        startAnimation();
+    }
+
+    private void startAnimation() {
+        Animation circle_anim = AnimationUtils.loadAnimation(this, R.anim.anim_round_rotate);
+        LinearInterpolator interpolator = new LinearInterpolator();  //设置匀速旋转，在xml文件中设置会出现卡顿
+        circle_anim.setInterpolator(interpolator);
+        circle_anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startAnimation2();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        telecomPic.startAnimation(circle_anim);  //开始动画
+    }
+
+    private void startAnimation2() {
+        telecomPic.clearAnimation();
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_scale);
+        LinearInterpolator interpolator = new LinearInterpolator();
+        animation.setInterpolator(interpolator);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                change();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        telecomPic.startAnimation(animation);  //开始动画
+    }
+
+    private void startAnimation3() {
+        telecomPic.clearAnimation();
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha_out);
+        LinearInterpolator interpolator = new LinearInterpolator();
+        animation.setInterpolator(interpolator);
+        telecomPic.startAnimation(animation);  //开始动画
+    }
+
+    private void startAnimationAd() {
+        ad.clearAnimation();
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
+        LinearInterpolator interpolator = new LinearInterpolator();
+        animation.setInterpolator(interpolator);
+        ad.startAnimation(animation);  //开始动画
+    }
+
+    private void findViews() {
+        telecomPic = findViewById(R.id.telecomPic);
+        ad = findViewById(R.id.ad);
     }
 
     private void change() {
-        ((ImageView)findViewById(R.id.telecomPic)).setImageResource(R.drawable.haobai);
-        findViewById(R.id.logo).setBackgroundColor(0xFFFFEFD5);
+        ad.setVisibility(View.VISIBLE);
+        startAnimationAd();
+        startAnimation3();
+
+        Message msg = Message.obtain();
+        msg.obj = this;
+        msg.what = MAIN;
+        handler.sendMessageDelayed(msg,
+                getResources().getInteger(R.integer.animAlphaTime) + 600L);
     }
 
     private void toMain() {
@@ -57,18 +135,11 @@ public class FlashActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             if (msg.obj instanceof FlashActivity) {
                 FlashActivity activity = (FlashActivity) msg.obj;
-                if(activity.isFinishing()){
+                if (activity.isFinishing()) {
                     return;
                 }
                 msg.obj = null;
                 switch (msg.what) {
-                    case CHANGE:
-                        activity.change();
-                        msg = Message.obtain();
-                        msg.obj = activity;
-                        msg.what = MAIN;
-                        sendMessageDelayed(msg, 800L);
-                        break;
                     case MAIN:
                         activity.toMain();
                         break;

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="animRoundRotateTime">600</integer>
+    <integer name="animScaleTime">300</integer>
+    <integer name="animAlphaTime">600</integer>
+</resources>
