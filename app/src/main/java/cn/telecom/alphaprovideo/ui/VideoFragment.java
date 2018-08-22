@@ -74,12 +74,12 @@ public class VideoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        displaySize(inflater.getContext());
         View root = inflater.inflate(R.layout.fragment_video, container, false);
         videoView = root.findViewById(R.id.videoView);
         playNow = root.findViewById(R.id.playNow);
         pic = root.findViewById(R.id.pic);
         setupViews();
-        displaySize(inflater.getContext());
         return root;
     }
 
@@ -124,16 +124,17 @@ public class VideoFragment extends Fragment {
         });
 
         //实例化媒体控制器
-        MediaController mediaController=new MediaController(videoView.getContext());
+        MediaController mediaController = new MediaController(videoView.getContext());
         mediaController.setMediaPlayer(videoView);
         videoView.setMediaController(mediaController);
 
         Glide.with(this).asBitmap().load(videoItem.getPicture())
                 .into(pic);
+        resetVideoViewSize(SCREENWIDTH, SCREENWIDTH * 9 / 16);
     }
 
     private void resetVideoViewSize(int width, int height) {
-        int size = SCREENWIDTH;
+        int size = SCREENWIDTH + 1;
         ViewGroup.LayoutParams params = videoView.getLayoutParams();
         params.width = size;
         params.height = size * height / width;
