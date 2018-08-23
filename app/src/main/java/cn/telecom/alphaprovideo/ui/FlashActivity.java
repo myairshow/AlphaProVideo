@@ -12,6 +12,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import cn.telecom.alphaprovideo.R;
+import cn.telecom.alphaprovideo.utils.FileCopyUtil;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -43,6 +44,8 @@ public class FlashActivity extends AppCompatActivity {
 
 
         startAnimation();
+
+        FileCopyUtil.copy(this);
     }
 
     private void startAnimation() {
