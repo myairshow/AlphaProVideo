@@ -55,6 +55,12 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".ui.PhoneMsgActivity"
+            android:configChanges="mcc|mnc|locale|keyboardHidden|navigation|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
