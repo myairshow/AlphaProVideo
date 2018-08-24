@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name=viewport content="width=480; initial-scale=0.67;  minimum-scale=0.67; maximum-scale=0.67;" />
+<title>个人中心</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery.js"></script>
+<body>
+<div class="InfoTop">
+	<div class="InfoTopImg" ><img id="headImage" src='images/img_header.png' onclick="headImage()"/></div>
+    <div class="InfoTopName">花卷</div>
+</div>
+<div class="MainBox">
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft">会员时间剩余：</div>
+        	<a class="FloatLeft BtnBbz" href=""><span>33天</span></a>
+        </dt>
+        <dd class="FloatRight"><a class="BtnWhatBbz" href="bbz_use.html">电信学院影视说明</a></dd>
+    </dl>
+</div>
+<div class="MainBox">
+	<dl class="FloatDiv ff" onclick="window.location='info.html'">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft MainBoxIcon"><img src="images/icon_1.png" /></div>
+        	<div class="FloatLeft">个人资料</div>
+        </dt>
+        <dd class="FloatRight MainBoxIconRight"><img src="images/icon_right.png" /></dd>
+    </dl>
+	<dl class="FloatDiv ff" onclick="window.location='#'">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft MainBoxIcon"><img src="images/icon_3.png" /></div>
+        	<div class="FloatLeft">开通会员</div>
+        </dt>
+        <dd class="FloatRight MainBoxIconRight"><img src="images/icon_right.png" /></dd>
+    </dl>
+	<dl class="FloatDiv ff" onclick="window.location='#'">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft MainBoxIcon"><img src="images/icon_4.png" /></div>
+        	<div class="FloatLeft">积分兑换</div>
+        </dt>
+        <dd class="FloatRight MainBoxIconRight"><img src="images/icon_right.png" /></dd>
+    </dl>
+	<dl class="FloatDiv ff" onclick="phoneInfo()">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft MainBoxIcon"><img src="images/icon_6.png" /></div>
+        	<div class="FloatLeft">关于手机</div>
+        </dt>
+        <dd class="FloatRight MainBoxIconRight"><img src="images/icon_right.png" /></dd>
+    </dl>
+</div>
+
+
+<!--弹出层背景-->
+<div class="LayerBody" id="overDiv" style="display:none;"></div>
+<!--end of弹出层背景-->
+
+<!--小贴士-->
+<div class="DivLayer" id="DivTips" style="display:none;">
+	<div class="LayerTitleTips"><img src="images/layer_title_tips.png" /></div>
+    <div class="LayerTxt">
+    	<p>1、填写必填项获得100贝贝值，完善全部资料可另外再获得100贝贝值；</p>
+        <p>2、完善个人资料后返回到公众号首页菜单栏，进入个人中心查看贝贝值。</p>
+    </div>
+    <div class="LayerTips">
+    	200个贝贝值正在急速向你奔来，赶紧去完善资料吧~~
+    </div>
+    <div class="LayerBtn">
+    	<a onclick="closeTips()">去完善</a>
+    </div>
+</div>
+
+<!--保存成功-->
+<div class="DivLayer" id="DivOk" style="display:none;">
+	<div class="LayerTitleTips"><img src="images/layer_title_tips.png" /></div>
+    <div class="LayerOk">
+    	<div class="LayerOkBig">恭喜你获得 52 贝贝值！</div>
+        <div class="LayerOkTxt">继续完善资料获得更多贝贝值哦~</div>
+    </div>
+    <div class="LayerBtn">
+    	<a onclick="closeOk()">继续完善</a>
+    	<a href="center.html">返回</a>
+    </div>
+</div>
+<script type="">
+	$(function(){
+		var name = '{"action":"userCenter","type":3}';
+		window.AndroidWebView.getAndroidMethod(name);
+	});
+
+
+function headImage(){
+	var name = '{"action":"userCenter","type":1}';
+	window.AndroidWebView.getAndroidMethod(name);
+}
+function phoneInfo(){
+	var name = '{"action":"userCenter","type":2}';
+	window.AndroidWebView.getAndroidMethod(name);
+}
+function checkAndroidCallBack(image){
+if(image){
+	$("#headImage").attr("src", 'data:image/png;base64,' + image);
+	}
+}
+</script>
+
+</body>
+</html>

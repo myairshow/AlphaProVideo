@@ -22,6 +22,7 @@ public class JsInterface {
     private Context mContext;
     private Handler mHandler;
     private final int CHANGE_HEADIMAGE_DEFAULE = 1;
+    private final int CHANGE_HEADIMAGE_DEFAULE2 = 3;
 
     public JsInterface(Context context) {
         this.mContext = context;
@@ -50,6 +51,9 @@ public class JsInterface {
                     case 2:
                         //手机信息
                             toPhoneMsgActivity();
+                        break;
+                    case 3:
+                        mHandler.sendEmptyMessage(CHANGE_HEADIMAGE_DEFAULE2);
                         break;
                 }
             }

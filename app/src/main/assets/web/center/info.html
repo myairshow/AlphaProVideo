@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name=viewport content="width=480; initial-scale=0.67;  minimum-scale=0.67; maximum-scale=0.67;" />
+<title>个人资料</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.js"></script>
+<script type="text/javascript">
+	function showTips(){
+		document.getElementById("overDiv").style.display = "block" ;
+		document.getElementById("DivTips").style.display = "block" ;
+	}
+	function closeTips(){
+		document.getElementById("overDiv").style.display = "none" ;
+		document.getElementById("DivTips").style.display = "none" ;
+	}
+	function showOk(){
+		document.getElementById("overDiv").style.display = "block" ;
+		document.getElementById("DivOk").style.display = "block" ;
+	}
+	function closeOk(){
+		document.getElementById("overDiv").style.display = "none" ;
+		document.getElementById("DivOk").style.display = "none" ;
+	}
+
+	$(function(){
+		var name = '{"action":"userCenter","type":3}';
+		window.AndroidWebView.getAndroidMethod(name);
+	});
+
+	function checkAndroidCallBack(image){
+	if(image){
+		$("#headImage").attr("src", 'data:image/png;base64,' + image);
+		}
+	}
+</script>
+
+<body>
+<dd class="FloatRight BtnYzm" style="width:100px;height:auto;padding:10px;"><a href="center.html">返回</a></dd>
+<div class="InfoTop">
+	<div class="InfoTopImg"><img id="headImage" src="images/img_header.png" /></div>
+    <div class="InfoTopName">花卷</div>
+</div>
+<div class="MainBox">
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft">手机号</div>
+        	<div class="FloatLeft MainBoxTips">（必填）</div>
+        	<div class="FloatLeft MainBoxBbz">翼积分+50</div>
+        </dt>
+        <!--内容填写错误的提示语-->
+        <!--<dd class="FloatRight TipsInput">
+        	<div class="TipsInputTxt FloatRight">请输入正确的11位手机号</div>
+            <div class="TipsInputIcon FloatRight"><img src="images/icon_input_tips.png" /></div>
+        </dd>-->
+        <dd class="FloatRight MainInput"><input class="MainInput" type="text" /></dd>
+    </dl>
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft">验证码</div>
+        </dt>
+        <dd class="FloatRight BtnYzm"><a href="#">获取验证码</a></dd>
+        <dd class="FloatRight MainInput"><input class="MainInput" type="text" /></dd>
+    </dl>
+</div>
+<div class="MainBox">
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft">姓名</div>
+        	<div class="FloatLeft MainBoxBbz">翼积分+5</div>
+        </dt>
+        <dd class="FloatRight MainInput"><input class="MainInput" type="text" /></dd>
+    </dl>
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft">QQ号</div>
+        	<div class="FloatLeft MainBoxBbz">翼积分+5</div>
+        </dt>
+        <dd class="FloatRight MainInput"><input class="MainInput" type="text" /></dd>
+    </dl>
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft">
+        	<div class="FloatLeft">推荐人邀请码</div>
+        </dt>
+        <dd class="FloatRight MainInput"><input class="MainInput" type="text" value="您收到的邀请码" onblur="if(this.value==''){this.value='您收到的邀请码'}" onfocus="this.value=''" /></dd>
+    </dl>
+	<dl class="FloatDiv ff">
+    	<dt class="FloatLeft MainBoxLeft">
+        	<div class="FloatLeft">
+            我的标签
+        	<div class="MainBoxBbz">翼积分+5</div>
+            </div>
+        </dt>
+        <dd class="FloatRight MainBoxRight">
+        	<a href="#">音乐</a>
+        	<a href="#">运动</a>
+        	<a class="MainBoxRightOn" href="#">电影</a>
+        	<a href="#">网红</a>
+        	<a class="MainBoxRightOn" href="#">吃货</a>
+        	<a href="#">旅行</a>
+        	<a href="#">阅读</a>
+        	<a href="#">处女座</a>
+        	<a href="#">美妆</a>
+        	<a href="#">游戏</a>
+        	<a href="#">时尚</a>
+        	<a href="#">购物</a>
+        	<a href="#">音乐</a>
+        	<a href="#">运动</a>
+        	<a class="MainBoxRightOn" href="#">电影</a>
+        	<a href="#">网红</a>
+        	<a class="MainBoxRightOn" href="#">吃货</a>
+        	<a href="#">旅行</a>
+        	<a href="#">阅读</a>
+        	<a href="#">处女座</a>
+        	<a href="#">美妆</a>
+        	<a href="#">游戏</a>
+        	<a href="#">时尚</a>
+        	<a href="#">购物</a>
+        </dd>
+    </dl>
+</div>
+<div class="ForBtnBottom">&nbsp;</div>
+<div class="BtnBottom"><a onclick="showOk()">保存</a></div>
+
+
+<!--弹出层背景-->
+<div class="LayerBody" id="overDiv" style="display:none;"></div>
+<!--end of弹出层背景-->
+
+<!--小贴士-->
+<div class="DivLayer" id="DivTips" style="display:none;">
+    <div class="LayerTxt">
+    	<p>1、填写必填项获得100翼积分，完善全部资料可另外再获得100翼积分；</p>
+        <p>2、完善个人资料后返回到公众号首页菜单栏，进入个人中心查看翼积分。</p>
+    </div>
+    <div class="LayerTips">
+    	200个翼积分正在急速向你奔来，赶紧去完善资料吧~~
+    </div>
+    <div class="LayerBtn">
+    	<a onclick="closeTips()">去完善</a>
+    </div>
+</div>
+
+<!--保存成功-->
+<div class="DivLayer" id="DivOk" style="display:none;">
+    <div class="LayerOk">
+    	<div class="LayerOkBig">恭喜你获得 52 翼积分！</div>
+        <div class="LayerOkTxt">继续完善资料获得更多翼积分哦~</div>
+    </div>
+    <div class="LayerBtn">
+    	<a onclick="closeOk()">继续完善</a>
+    	<a href="center.html">返回</a>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,9 +54,11 @@ public class WebFragment extends Fragment {
 
     private WebView webView;
     private final int CHANGE_HEADIMAGE_DEFAULE = 1;
+    private final int CHANGE_HEADIMAGE_DEFAULE2 = 3;
     private final int CHANGE_PHOTOTAKE_DEFAULE = 2;
     private PhotoPopupWindow mPhotoPopupWindow;
 
+    private static String headimg_str = "";
     private Handler myHandler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -65,6 +68,7 @@ public class WebFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             // 进入相册选择
+                            Toast.makeText(getActivity(),"功能暂未开发",Toast.LENGTH_SHORT).show();
                         }
                     }, new View.OnClickListener() {
                         @Override
@@ -72,11 +76,15 @@ public class WebFragment extends Fragment {
                             // 拍照
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, CHANGE_PHOTOTAKE_DEFAULE);
+                            mPhotoPopupWindow.dismiss();
                         }
                     });
                     View rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_web, null);
                     mPhotoPopupWindow.showAtLocation(rootView,
                             Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                    break;
+                case CHANGE_HEADIMAGE_DEFAULE2:
+                    webView.loadUrl("javascript: checkAndroidCallBack('"+ headimg_str + "')");
                     break;
             }
             super.handleMessage(msg);
@@ -193,13 +201,13 @@ public class WebFragment extends Fragment {
                 Bundle bundle = intent.getExtras();
                 if (bundle != null) {
                     Bitmap bitmap = (Bitmap) bundle.get("data"); //get bitmap
-                    Bitmap compressBitmap = compressImage(bitmap);
+                    Bitmap compressBitmap = compressImage(bitmap,50);
                     String str = bitmapToBase64(compressBitmap);
                     setPlatformType(str);
                 }
             }else {
                 Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
-                Bitmap compressBitmap = compressImage(bitmap);
+                Bitmap compressBitmap = compressImage(bitmap,50);
                 String str = bitmapToBase64(compressBitmap);
                 setPlatformType(str);
 
@@ -209,20 +217,58 @@ public class WebFragment extends Fragment {
 
     /**
      * 图片压缩
-     * @param image
+     * @param
      * @return
      */
-    public Bitmap compressImage(Bitmap image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
-        return bitmap;
+    public Bitmap compressImage(Bitmap bitmap,int edgeLength) {
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        image.compress(Bitmap.CompressFormat.PNG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+//        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());// 把压缩后的数据baos存放到ByteArrayInputStream中
+//        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);// 把ByteArrayInputStream数据生成图片
+//        return bitmap;
+        if(null == bitmap || edgeLength <= 0)
+        {
+            return  null;
+        }
+
+        Bitmap result = bitmap;
+        int widthOrg = bitmap.getWidth();
+        int heightOrg = bitmap.getHeight();
+
+        if(widthOrg > edgeLength && heightOrg > edgeLength)
+        {
+            //压缩到一个最小长度是edgeLength的bitmap
+            int longerEdge = (int)(edgeLength * Math.max(widthOrg, heightOrg) / Math.min(widthOrg, heightOrg));
+            int scaledWidth = widthOrg > heightOrg ? longerEdge : edgeLength;
+            int scaledHeight = widthOrg > heightOrg ? edgeLength : longerEdge;
+            Bitmap scaledBitmap;
+
+            try{
+                scaledBitmap = Bitmap.createScaledBitmap(bitmap, scaledWidth, scaledHeight, true);
+            }
+            catch(Exception e){
+                return null;
+            }
+
+            //从图中截取正中间的正方形部分。
+            int xTopLeft = (scaledWidth - edgeLength) / 2;
+            int yTopLeft = (scaledHeight - edgeLength) / 2;
+
+            try{
+                result = Bitmap.createBitmap(scaledBitmap, xTopLeft, yTopLeft, edgeLength, edgeLength);
+                scaledBitmap.recycle();
+            }
+            catch(Exception e){
+                return null;
+            }
+        }
+
+        return result;
     }
 
     // bitmap转base64
     public static String bitmapToBase64(Bitmap bitmap) {
-        String result = "data:image/png;base64,";//必须加上“data:image/png;base64”图片的数据格式H5才能识别出来
+        String result = "";//必须加上“data:image/png;base64”图片的数据格式H5才能识别出来
         ByteArrayOutputStream bos = null;
         try {
             if (null != bitmap) {
@@ -246,6 +292,7 @@ public class WebFragment extends Fragment {
         }
         Log.d("it520", "result=" + result);
         Log.d("it520", "size=" + bos.toByteArray().length / 1024);//获取ByteArrayOutputStream的大小，单位kb，
+        headimg_str = result;
         return result;
     }
 
@@ -266,17 +313,10 @@ public class WebFragment extends Fragment {
             @Override
             public void run() {
                 //android调用H5代码
-                JSONObject result_obj = new JSONObject();
-                try {
-                    result_obj.put("name", "123");
-                    result_obj.put("imgPath",result.toString());
-                    webView.loadUrl("javascript: checkAndroidCallBack('"+ result_obj + "')");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                webView.loadUrl("javascript: checkAndroidCallBack('"+ result.toString() + "')");
 
             }
-        }, 1000);
+        }, 500);
     }
 
 }

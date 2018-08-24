@@ -1,0 +1,101 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*全局样式*/
+*{margin:0px; padding:0px;}
+ul,li{list-style:none; border:0;}
+img{border:0; vertical-align:bottom; width:100%;}
+html{width:100%; height:100%;}
+body{font-family:"微软雅黑",Arial, Helvetica, sans-serif; height:100%; color:#000; background:#eee; text-align:justify; text-justify:inter-ideograph;}
+a,a:hover{cursor:pointer; text-decoration:none;}
+input:focus{outline:none;}
+.ff:after{content:"."; display:block; height:0; clear:both; visibility:hidden;}
+.DisplayNone{display:none;}
+.LineNone{line-height:0; font-size:0;}
+.FloatDiv{height:auto !important; height:1px; min-height:1px;}
+	.FloatLeft{float:left;}
+	.FloatRight{float:right;}
+
+/*页面主体*/
+.BtnTips{width:94%; margin:0 0 0 3%; padding:1em 0 0; position:absolute;}
+	.BtnTips a{display:block; background:url(../images/icon_tips.png) left center no-repeat; background-size:contain; padding:0 0 0 1.8em; color:#888; height:1.2em; line-height:1.2em; font-size:1.1em;}
+.InfoTop{padding:3em 0 1.5em;}
+	.InfoTopImg{width:23.75%; margin:0 auto; border:4px solid #fff; -moz-border-radius:30em; border-radius:30em; overflow:hidden;}
+	.InfoTopName{font-size:1.4em; text-align:center; padding:0.3em 0 0;}
+.MainBox{background:#fff; border-top:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3; margin:1em 0 0;}
+	.MainBox dl{font-size:1.4em; height:2em; line-height:2em; border-bottom:1px solid #eaeaec; margin:0 0 0 3%; padding:0.5em 3% 0.5em 0;}
+	.MainBox dl:last-child{border:none;}
+		.MainBoxTips{font-size:0.7em; color:#888;}
+		.MainBoxBbz{background:#ffb3b3; font-size:0.6em; color:#fff; height:1.4em; line-height:1.4em; padding:0 0.8em; -moz-border-radius:2em; border-radius:2em; text-align:center;}
+			.MainInput{width:45%;}
+			.MainInput input{width:100%; padding:0; margin:0; border:none; background:#fff; font-size:1em; height:2em; line-height:2em; text-align:right; color:#555;}
+			.BtnYzm{margin:0 0 0 0.6em;}
+				.BtnYzm a{display:block; background:#f28484; color:#fff; text-align:center; padding:0 1em; -moz-border-radius:2em; border-radius:2em; font-size:0.9em;}
+		.MainBoxLeft{width:25%;}
+		.MainBoxRight{width:75%;}
+			.MainBoxRight a{display:block; width:22%; margin:0.25em 1%; float:left; text-align:center; font-size:0.9em; -moz-border-radius:2em; border-radius:2em; border:1px solid #ddd; color:#999; height:1.8em; line-height:1.8em;}
+				.MainBoxRight a.MainBoxRightOn{background:#ffb3b3; color:#fff; border:1px solid #ffb3b3;}
+		.TipsInput{position:absolute; width:95%; text-align:right; margin-top:-1.5em;}
+			.TipsInputTxt{font-size:0.7em; border:1px solid #f28484; background:#fff; color:#f28484; height:1.8em; line-height:1.8em; padding:0 0.8em; -moz-border-radius:2em; border-radius:2em;}
+			.TipsInputIcon{width:0.5em; padding:1.3em 1em 0 0; position:absolute; margin:0 0 0 90%}
+	.BtnBbz{color:#f28484; font-size:0.8em;}
+		.BtnBbz span{font-size:1.6em; font-weight:bold;}
+		.BtnWhatBbz{display:block; padding:0 0 0 1.2em; background:url(../images/icon_what_bbz.png) left center no-repeat; background-size:contain; height:1.1em; line-height:1.1em; color:#888; margin:0.8em 0 0; font-size:0.8em;}
+	.MainBoxIcon{width:1.2em; padding:0.4em 0.5em 0 0;}
+	.MainBoxIconRight{width:0.6em; padding:0.4em 0 0;}
+.ForBtnBottom{height:5em;}
+.BtnBottom{height:3em; line-height:3em; font-size:1.4em; font-weight:bold; position:fixed; top:100%; margin-top:-3em; width:100%;}
+	.BtnBottom a{display:block; background:#d96d6d; color:#fff; text-align:center;}
+
+/*内页*/
+.PageMain{background:#fff; border-bottom:1px solid #e3e3e3; padding:2em 0;}
+	.PageTitle{width:41.67%;}
+	.PageTxt{width:90%; margin:0 auto;}
+		.PageTxtTitle{font-weight:bold; font-size:1.3em;}
+		.PageTxtContent{font-size:1.1em; color:#555; padding:0.3em 0 0.6em;}
+			.BtnQuestion{color:#000;}
+				.BtnQuestion a{color:#000; font-weight:bold; font-size:1.1em;}
+.ShareBox{background:#fff; border-top:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3; margin:1em 0 0; padding:1.5em 0;}
+	.ShareTitle{background:url(../images/bg_img.png) center bottom no-repeat #11bf5b; background-size:contain; padding:3em 0 1.5em; text-align:center; color:#fff;}
+		.ShareTips{font-size:1.1em; padding:0 0 0.5em;}
+		.ShareCode{font-size:3em; font-weight:bold;}
+		.BtnShare{display:block; width:6em; font-size:1.3em; margin:1em auto 0; -moz-border-radius:2em; border-radius:2em; height:2em; line-height:2em; background:#fff; color:#11bf5b;}
+		
+.MybbzTitle{background:url(../images/bg_img.png) center bottom no-repeat #f28484; background-size:contain; padding:3em 0 2.5em; text-align:center; color:#fff;}
+	.MybbzBox{background:#fff; border-top:1px solid #e3e3e3; border-bottom:1px solid #e3e3e3; margin:1em 0 0; padding:0 1em;}
+		.MybbzBox dl{border-bottom:1px solid #eee; padding:1em 0;}
+			.MybbzBox dl:last-child{border:none;}
+		.MybbzBoxTitle{width:50%; font-size:1.2em; overflow:hidden;}
+		.MybbzBoxDate{width:20%; font-size:1em; color:#999; margin:0 0 0 2%; text-align:right;}
+		.MybbzBoxFen{width:25%; text-align:right; font-size:1.1em; color:#f28484;}
+
+.Discover{background:url(../images/bg_discover.png) right bottom no-repeat #f28484; background-size:contain; color:#fff;} 
+	.BigImg{width:100%;}
+	.DiscoverTxt{text-align:center; padding:2em 0 0; font-size:1.5em;}
+		.DiscoverTxt span{font-weight:bold;}
+	.DiscoverBtn{margin:2em auto 0; text-align:center;}
+		.DiscoverBtn a{padding:0.5em 1.5em; background:#fff; overflow:hidden; -moz-border-radius:2em; border-radius:2em; font-size:1.3em; height:2em; line-height:2em; margin:0 0.5em; color:#be4949; -webkit-box-shadow:0 3px 7px 3px #db6262; -moz-box-shadow:0 3px 7px 3px #db6262; box-shadow:0 3px 7px 3px #db6262;}
+	.DiscoverCode{width:40.83%; margin:2em auto 0;}
+		.DiscoverCode a{display:block;}
+		
+
+/*.MainInput input{width:100%; display:block; margin:0 auto; padding:0; border:none; background:#fff; font-size:1.5em; height:2.5em; line-height:2.5em; text-align:center; color:#555; -moz-border-radius:3em; border-radius:3em; text-align:center;}*/
+
+.CopyRight{padding:5% 0 0; background:#ff7d95;}
+
+.LayerBody{background:#000; width:100%; height:100%; display:block; overflow:hidden; left:0; top:0; filter:alpha(opacity=70); opacity:0.7; z-index:4; position:fixed!important; position:absolute; _background:none; _top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 : document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2);}
+
+.DivLayer{z-index:4; width:70%; left:50%; padding:4% 0 6%; background:#fff; top:22%; margin-left:-35% !important; position:fixed!important; position:absolute; _top:expression(eval(document.compatMode && document.compatMode=='CSS1Compat') ? documentElement.scrollTop + (document.documentElement.clientHeight-this.offsetHeight)/2 : document.body.scrollTop + (document.body.clientHeight - this.clientHeight)/2); -moz-border-radius:0.8em; border-radius:0.8em; overflow:hidden;}
+
+.LayerTitleTips{width:60%;}
+.LayerTxt{width:86%; margin:0 auto; font-size:1.2em; line-height:1.4em; color:#555;}
+	.LayerTxt p{margin:0.4em 0;}
+.LayerTips{width:76%; margin:1em auto 0; font-size:1.2em; padding:2% 5%; line-height:1.4em; border:1px solid #f28484; -moz-border-radius:0.4em; border-radius:0.4em; color:#f28484;}
+.LayerOk{padding:0 0 0.5em; text-align:center;}
+	.LayerOkBig{font-size:1.4em; color:#f28484;}
+		.LayerOk span{font-weight:bold; margin:0 0.5em;}
+	.LayerOkTxt{padding:0.5em 0 0; color:#555;}
+.LayerBtn{margin:1.5em auto 0; text-align:center;}
+	.LayerBtn a{background:#f28484; color:#fff; font-size:1.3em; padding:0.35em 1em; -moz-border-radius:2em; border-radius:2em; margin:0 0.3em;}
+
+
